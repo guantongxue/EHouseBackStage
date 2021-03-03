@@ -1,0 +1,19 @@
+server:
+  port: 7001
+
+eureka:
+  instance:
+    hostname: eureka7001.com
+  client:
+    #是否将自己注册到注册中心, 默认true
+    register-with-eureka: false
+    #是否从EurekaServer抓取已有的注册信息,单机无所谓,集群必须设置为true配合ribbon使用负载均衡
+    fetch-registry: true
+    service-url:
+      集群版  defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+#      defaultZone: http://eureka7001.com:7001/eureka/   #单机版
+  server:
+    #开启自我保护功能，保证不可用服务被及时剔除
+    enable-self-preservation: false
+    #设置可断开时间为2秒，默认设置为90秒，缩短可断开时间
+    eviction-interval-timer-in-ms: 2000

@@ -1,0 +1,35 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: ehouse-gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+        - id: user_routh  #路由id,没有固定规则但要求唯一，建议配合服务名
+          uri: lb://ehouse-user-consumer-service #匹配后提供服务的路由地址
+          predicates:
+            - Path=/user/**   #断言路径匹配的进行路由
+
+#        - id: payment_routh2  #路由id,没有固定规则但要求唯一，建议配合服务名
+#          uri: lb://cloud-payment-service   #匹配后提供服务的路由地址
+#          predicates:
+#            - Path=/payment/lb/**   #断言路径匹配的进行路由
+  #            - After=2021-01-28T23:09:57.617+08:00[GMT+08:00]
+  #            - Cookie=username,gnw
+  #            - Header=X-Request-Id,\d+ #请求头要有X-Request-Id属性并且值为整数的正则表达式
+
+eureka:
+  instance:
+    hostname: ehouse-gateway-service
+  client:
+    #    是否将自己注册进eureka
+    register-with-eureka: true
+    #是否从EurekaServer抓取已有的注册信息,单机无所谓,集群必须设置为true配合ribbon使用负载均衡
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
