@@ -15,6 +15,24 @@ eureka:
 spring:
   application:
     name: ehouse-user-consumer-service
+      #设置允许 一个项目中有name一样的FeignClient
+  main:
+      allow-bean-definition-overriding: true
+      #redis配置
+  redis:
+    host: 106.52.39.242
+    port: 6379
+    password:
+    database: 1
+    timeout: 60s
+    ## springboot2.0之后将连接池由jedis改为lettuce
+    lettuce:
+      pool:
+        max-idle: 30
+        max-active: 8
+        max-wait: 10000
+        min-idle: 10
+
 #  zipkin:
 #    base-url: http://localhost:9411
 #  sleuth:

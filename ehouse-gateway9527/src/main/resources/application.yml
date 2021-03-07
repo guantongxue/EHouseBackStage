@@ -3,6 +3,20 @@ server:
 spring:
   application:
     name: ehouse-gateway-service
+  redis:
+    host: 106.52.39.242
+    port: 6379
+    password:
+    database: 1
+    timeout: 60s
+    ## springboot2.0之后将连接池由jedis改为lettuce
+    lettuce:
+      pool:
+        max-idle: 30
+        max-active: 8
+        max-wait: 10000
+        min-idle: 10
+
   cloud:
     gateway:
       discovery:
@@ -13,7 +27,12 @@ spring:
           uri: lb://ehouse-user-consumer-service #匹配后提供服务的路由地址
           predicates:
             - Path=/user/**   #断言路径匹配的进行路由
-
+      #处理跨域请求问题
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
 #        - id: payment_routh2  #路由id,没有固定规则但要求唯一，建议配合服务名
 #          uri: lb://cloud-payment-service   #匹配后提供服务的路由地址
 #          predicates:

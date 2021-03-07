@@ -3,7 +3,7 @@
 
 <mapper namespace="com.minjiang.ehouse.dao.UserDao">
 
-    <select id="selectUserByName" resultType="User" >
+    <select id="selectUserByName" resultType="com.minjiang.ehouse.entities.user.User" >
         select * from user where id = (select id_ref from UserIdRef where username = #{username})
     </select>
 

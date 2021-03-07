@@ -15,7 +15,12 @@ public enum ResultCode {
     UNAUTHENTICATED(false,400,"您还未登录"),
     UNAUTHORISE(false,401,"权限不足"),
     SERVER_ERROR(false,1000,"抱歉，系统繁忙，请稍后重试！"),
-    PASSWORD_ERROR(false,501,"密码错误");
+    PASSWORD_ERROR(false,501,"密码错误"),
+    REFRESH_TOKEN_TIME_OUT(false,502,"refreshToken过期"),
+    REFRESH_TOKEN_ERROR(false,503,"refreshToken错误"),
+    TOKEN_NONE(false,504,"token 不存在"),
+    USER_INFO_NULL(false,505,"用户名为空"),
+    TOKEN_ERROR(false,506,"TOKEN错误");
     //---用户操作返回码 2xxxx---
     //---企业操作返回码 3xxxx---
     //---权限操作返回码---
