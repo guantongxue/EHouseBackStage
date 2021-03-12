@@ -17,17 +17,29 @@ import javax.annotation.Resource;
  * @create 2021/3/3 6:04
  */
 
-@RestController
 @Slf4j
+@RestController
 public class UserController {
 
     @Resource
     private UserLoginService userLoginService;
 
+    private Result result;
+
     @PostMapping(value = "/user/login")
     public Result userLogin(@RequestBody User user) {
-        Result result = new Result();
         result = userLoginService.userLogin(user);
         return result;
+    }
+    @PostMapping(value = "/user/register")
+    public Result userRegister(@RequestBody User user) {
+        result = userLoginService.userRegister(user);
+        return result;
+    }
+
+    @PostMapping(value = "/user/duplicateName")
+    public Result duplicateName(@RequestBody User user){
+        result  = userLoginService.duplicateName(user);
+        return  result;
     }
 }

@@ -3,6 +3,7 @@ package com.minjiang.ehouse.service;
 import com.minjiang.ehouse.entities.Result;
 import com.minjiang.ehouse.entities.user.User;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -16,4 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public interface UserLoginService {
 
     public Result userLogin(User user);
+
+    public Result userRegister(User user);
+
+    public Result duplicateName(@RequestBody User user);
 }

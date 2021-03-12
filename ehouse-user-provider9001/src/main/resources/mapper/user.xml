@@ -15,5 +15,19 @@
 <!--    <select id="selectUserByNameOrTelPhone" parameterType="String" resultMap="BaseResultMap" >-->
 <!--        select * from payment where id = #{id};-->
 <!--    </select>-->
+    <!--         insert into UserIdRef (username,id_ref,tel_phone) values (#{username},#{id},#{tel_phone});-->
+    <insert id="insertUser" parameterType="com.minjiang.ehouse.entities.user.User">
+        insert into user (id,username,password,tel_phone,id_card,user_desc,authority)
+        values (#{id},#{username},#{password},#{tel_phone},#{id_card},#{user_desc},#{authority});
+        insert into UserIdRef (username,id_ref,tel_phone) values (#{username},#{id},#{tel_phone});
+    </insert>
+
+<!--    <resultMap id="UserResultMap" type="com.minjiang.ehouse.entities.user.User">-->
+<!--        <id column="id" property="id" jdbcType="VARCHAR"></id>-->
+<!--        <id column="username" property="username" jdbcType="VARCHAR"></id>-->
+<!--    </resultMap>-->
+    <select id="duplicateName" parameterType="string" resultType="com.minjiang.ehouse.entities.user.User">
+        select * from user where username = #{username};
+    </select>
 
 </mapper>

@@ -34,13 +34,13 @@ public class Result {
     private String refreshToken;
 
     public Result(ResultCode code) {
-        this.success = success;
+        this.success = code.success;
         this.code = code.code;
         this.message = code.message;
     }
 
     public Result(ResultCode code, Object data){
-        this.success = success;
+        this.success = code.success;
         this.code = code.code;
         this.message = code.message;
         this.data = data;
@@ -87,5 +87,8 @@ public class Result {
     public static Result USER_INFO_NULL(){return new Result(ResultCode.USER_INFO_NULL);}
 
     public static Result TOKEN_ERROR(){return new Result(ResultCode.TOKEN_ERROR);}
+
+    public static Result REGISTER_FAIL(){return new Result(ResultCode.REGISTER_FAIL);}
+
 
 }

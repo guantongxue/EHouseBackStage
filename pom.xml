@@ -17,6 +17,8 @@
         <module>ehouse-common</module>
         <module>ehouse-gateway9527</module>
         <module>ehouse-common-model</module>
+        <module>ehouse-map9010</module>
+        <module>ehouse-map9011</module>
     </modules>
 
     <properties>

@@ -20,7 +20,8 @@ public enum ResultCode {
     REFRESH_TOKEN_ERROR(false,503,"refreshToken错误"),
     TOKEN_NONE(false,504,"token 不存在"),
     USER_INFO_NULL(false,505,"用户名为空"),
-    TOKEN_ERROR(false,506,"TOKEN错误");
+    TOKEN_ERROR(false,506,"TOKEN错误"),
+    REGISTER_FAIL(false,507,"注册失败");
     //---用户操作返回码 2xxxx---
     //---企业操作返回码 3xxxx---
     //---权限操作返回码---

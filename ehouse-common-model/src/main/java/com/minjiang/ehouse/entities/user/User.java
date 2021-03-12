@@ -29,6 +29,6 @@ public class User implements Serializable {
     //用户个人描述
     private String user_desc;
     //用户权限  客服，管理员，用户，企业用户
-    private String Authority;
+    private String authority;
 
 }

@@ -41,9 +41,9 @@ spring:
 #      probability: 1
 ribbon:
   #  建立连接所用时间，适用于网络正常的情况下，两端连接所用的时间
-  ReadTimeout: 5000
+  ReadTimeout: 10000
   #建立连接后从服务器读取到可用资源的时间
-  ConnectTimeout: 5000
+  ConnectTimeout: 10000
 
 logging:
   level:
