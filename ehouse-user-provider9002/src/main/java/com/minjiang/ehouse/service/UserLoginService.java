@@ -1,6 +1,8 @@
 package com.minjiang.ehouse.service;
 
 import com.minjiang.ehouse.entities.Result;
+import com.minjiang.ehouse.entities.user.ChangePwdForm;
+import com.minjiang.ehouse.entities.user.ChangeUserInfoForm;
 import com.minjiang.ehouse.entities.user.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,4 +21,10 @@ public interface UserLoginService {
     public Result userRegister(User user);
 
     public Result duplicateName(@RequestBody User user);
+
+    public Result selectUserDetail(@RequestBody User user);
+
+    public Result changepwd(@RequestBody ChangePwdForm changePwdForm);
+
+    public Result changeUserInfo( ChangeUserInfoForm changeUserInfoForm);
 }

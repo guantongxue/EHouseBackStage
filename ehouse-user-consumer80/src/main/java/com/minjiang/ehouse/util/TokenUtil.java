@@ -36,9 +36,9 @@ public class TokenUtil {
     /**
      * 固定的头
      */
-    private static final String PC = "PC";
     private static final String USER = "USER";
-    private static final String WX = "WX";
+    private static final String QIYE = "QIYE";
+    private static final String KEFU = "KEFU";
 
     private Result result;
 
@@ -47,7 +47,7 @@ public class TokenUtil {
 
     /**
      * 生成token和refreshToken
-     * @param phone
+     * @param username
      * @param type
      * @return
      */
@@ -121,11 +121,11 @@ public class TokenUtil {
     private String getPrefix(String type){
         String prefix = null;
         if ("1".equals(type)){
-            prefix =PC;
+            prefix =USER;
         }else if ("2".equals(type)){
-            prefix = USER;
+            prefix = QIYE;
         }else if ("3".equals(type)){
-            prefix =WX;
+            prefix =KEFU;
         }
         return prefix;
     }

@@ -3,6 +3,8 @@ package com.minjiang.ehouse.controller;
 import cn.hutool.core.util.StrUtil;
 import com.minjiang.ehouse.entities.Result;
 import com.minjiang.ehouse.entities.ResultCode;
+import com.minjiang.ehouse.entities.user.ChangePwdForm;
+import com.minjiang.ehouse.entities.user.ChangeUserInfoForm;
 import com.minjiang.ehouse.entities.user.User;
 import com.minjiang.ehouse.service.UserService;
 import com.minjiang.ehouse.util.IdWorker;
@@ -92,4 +94,23 @@ public class UserController {
         result  = userService.duplicateName(user);
         return  result;
     }
+
+    @PostMapping(value = "/user/selectUseDetail")
+    public Result selectUseDetail(@RequestBody User user){
+        result  = userService.selectUserDetail(user);
+        return  result;
+    }
+
+    @PostMapping(value = "/user/changepwd")
+    public Result changepwd(@RequestBody ChangePwdForm changePwdForm){
+        result  = userService.changepwd(changePwdForm);
+        return result;
+    }
+
+    @PostMapping(value = "/user/changeUserInfo")
+    public Result changeUserInfo(@RequestBody ChangeUserInfoForm changeUserInfoForm){
+        result  = userService.changeUserInfo(changeUserInfoForm);
+        return result;
+    }
+
 }

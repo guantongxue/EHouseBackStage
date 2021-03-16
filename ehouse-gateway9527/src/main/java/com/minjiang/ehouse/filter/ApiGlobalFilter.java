@@ -7,7 +7,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.minjiang.ehouse.exception.BizException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -54,6 +56,7 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
             ServerHttpResponse response = exchange.getResponse();
             //没有数据
             if (StrUtil.isBlank(token) || StrUtil.isBlank(type)) {
+//                throw new BizException("500","token校验失败");
                 JSONObject message = new JSONObject();
                 message.put("code", 504);
                 message.put("message", "鉴权失败，无token或类型");
@@ -64,23 +67,25 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
                 return response.writeWith(Mono.just(buffer));
                 //有数据
             }else {
+                JSONObject message = new JSONObject();
                 String prefix = this.getPrefix(type);
                 //校验token
-                String username = verifyJWT(token ,prefix);
-                if (StrUtil.isEmpty(username)){
-                    JSONObject message = new JSONObject();
-                    message.put("message", "token错误");
-                    message.put("code", 506);
-                    byte[] bits = message.toString().getBytes(StandardCharsets.UTF_8);
-                    DataBuffer buffer = response.bufferFactory().wrap(bits);
-                    response.setStatusCode(HttpStatus.UNAUTHORIZED);
-                    response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
-                    return response.writeWith(Mono.just(buffer));
-                }
-                //将现在的request，添加当前身份
-                ServerHttpRequest mutableReq = exchange.getRequest().mutate().header("Authorization-UserName", username).build();
-                ServerWebExchange mutableExchange = exchange.mutate().request(mutableReq).build();
-                return chain.filter(mutableExchange);
+                    String username = verifyJWT(token ,prefix);
+                    if (StrUtil.isEmpty(username)){
+//                        throw new BizException("500","token校验失败");
+                        message.put("message", "token错误");
+                        message.put("code", 506);
+                        byte[] bits = message.toString().getBytes(StandardCharsets.UTF_8);
+                        DataBuffer buffer = response.bufferFactory().wrap(bits);
+                        response.setStatusCode(HttpStatus.UNAUTHORIZED);
+                        response.getHeaders().add("Content-Type", "text/json;charset=UTF-8");
+                        return response.writeWith(Mono.just(buffer));
+                    }
+                    //将现在的request，添加当前身份
+                    ServerHttpRequest mutableReq = exchange.getRequest().mutate().header("Authorization-UserName", username).build();
+                    ServerWebExchange mutableExchange = exchange.mutate().request(mutableReq).build();
+                    return chain.filter(mutableExchange);
+
             }
         }
         return chain.filter(exchange);
@@ -101,7 +106,8 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
             DecodedJWT jwt = verifier.verify(token);
             userName = jwt.getClaim("username").asString();
         } catch (JWTVerificationException e){
-            e.printStackTrace();
+//            e.printStackTrace();
+//            throw new BizException("500","token校验失败");
             return "";
         }
         return userName;
@@ -114,15 +120,14 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
     private String getPrefix(String type){
         String prefix = null;
         if ("1".equals(type)){
-            prefix = "OPERATE";
-        }else if ("2".equals(type)){
             prefix = "USER";
+        }else if ("2".equals(type)){
+            prefix = "QIYE";
         }else if ("3".equals(type)){
-            prefix = "WX";
+            prefix = "KEFU";
         }
         return prefix;
     }
-
     public int getOrder() {
         return -200;
     }

@@ -29,4 +29,24 @@
     <select id="duplicateName" parameterType="string" resultType="com.minjiang.ehouse.entities.user.User">
         select * from user where username = #{username};
     </select>
+
+    <select id="selectUseDetail" parameterType="com.minjiang.ehouse.entities.user.User" resultType="com.minjiang.ehouse.entities.user.User">
+        select * from user where username = #{username};
+    </select>
+    <update id="updateUserPwd" parameterType="com.minjiang.ehouse.entities.user.ChangePwdForm">
+        update user set password = #{newpwd} where username=#{username};
+    </update>
+    <update id="changeUserInfo" parameterType="com.minjiang.ehouse.entities.user.ChangeUserInfoForm">
+        update user set
+        <if test=" userTel != null">
+            tel_phone = #{userTel}
+        </if>
+        <if test=" userDesc != null">
+            user_desc = #{userDesc}
+        </if>
+        <if test=" auth != null">
+            authority = #{auth}
+        </if>
+        where username=#{username};
+    </update>
 </mapper>

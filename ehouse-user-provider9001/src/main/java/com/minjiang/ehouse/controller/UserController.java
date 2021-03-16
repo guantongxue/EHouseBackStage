@@ -1,6 +1,8 @@
 package com.minjiang.ehouse.controller;
 
 import com.minjiang.ehouse.entities.Result;
+import com.minjiang.ehouse.entities.user.ChangePwdForm;
+import com.minjiang.ehouse.entities.user.ChangeUserInfoForm;
 import com.minjiang.ehouse.entities.user.User;
 
 import com.minjiang.ehouse.service.UserLoginService;
@@ -41,5 +43,23 @@ public class UserController {
     public Result duplicateName(@RequestBody User user){
         result  = userLoginService.duplicateName(user);
         return  result;
+    }
+
+    @PostMapping(value = "/user/selectUseDetail")
+    public Result selectUserDetail(@RequestBody User user){
+        result  = userLoginService.selectUserDetail(user);
+        return  result;
+    }
+
+    @PostMapping(value = "/user/changepwd")
+    public Result changepwd(@RequestBody ChangePwdForm changePwdForm){
+        result  = userLoginService.changepwd(changePwdForm);
+        return result;
+    }
+
+    @PostMapping(value = "/user/changeUserInfo")
+    public Result changeUserInfo(@RequestBody ChangeUserInfoForm changeUserInfoForm){
+        result  = userLoginService.changeUserInfo(changeUserInfoForm);
+        return result;
     }
 }
