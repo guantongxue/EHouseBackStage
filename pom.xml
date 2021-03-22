@@ -19,6 +19,8 @@
         <module>ehouse-common-model</module>
         <module>ehouse-map9010</module>
         <module>ehouse-map9011</module>
+        <module>ehouse-houseResouce9020</module>
+        <module>ehouse-houseResouce9021</module>
     </modules>
 
     <properties>

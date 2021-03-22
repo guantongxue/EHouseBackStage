@@ -31,6 +31,10 @@ spring:
           uri: lb://ehouse-user-consumer-service #匹配后提供服务的路由地址
           predicates:
             - Path=/getPositionCity   #断言路径匹配的进行路由
+        - id: user_routh3  #路由id,没有固定规则但要求唯一，建议配合服务名
+          uri: lb://ehouse-house-resouce-service #匹配后提供服务的路由地址
+          predicates:
+            - Path=/house/**   #断言路径匹配的进行路由
       #处理跨域请求问题
       globalcors:
         cors-configurations:
