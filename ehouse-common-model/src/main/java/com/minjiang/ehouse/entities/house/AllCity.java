@@ -1,26 +1,18 @@
-package com.minjiang.ehouse.dto;
+package com.minjiang.ehouse.entities.house;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sun.dc.pr.PRError;
-
-import java.util.List;
 
 /**
  * @auther guannw
- * @create 2021/3/21 15:43
+ * @create 2021/3/24 22:45
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class City {
-
+public class AllCity {
     private Long id;
 
     private String city_name;
-
-    private List<Area> areaList;
-
 }

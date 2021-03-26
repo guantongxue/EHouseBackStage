@@ -2,10 +2,10 @@ package com.minjiang.ehouse.controller;
 
 import com.google.gson.Gson;
 import com.minjiang.ehouse.entities.Result;
-import com.minjiang.ehouse.entities.ResultCode;
+import com.minjiang.ehouse.entities.house.GetAllAreaByCity;
 import com.minjiang.ehouse.entities.house.HouseReleaseForm;
+import com.minjiang.ehouse.entities.house.SelectHouseOption;
 import com.minjiang.ehouse.service.GetHouseResouceService;
-import com.minjiang.ehouse.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,4 +49,21 @@ public class GetHouserRecouseController {
         HouseReleaseForm houseReleaseForm1 = gson.fromJson(houseReleaseForm, HouseReleaseForm.class);
         return getHouseResouceService.houseRelease(houseReleaseForm1,file,files);
     }
+    @PostMapping(value = "/house/getAllAreaByCity")
+    public Result getAllAreaByCity(@RequestBody GetAllAreaByCity getAllAreaByCity){
+        return getHouseResouceService.getAllAreaByCity(getAllAreaByCity);
+    }
+
+   @GetMapping(value = "/house/getAllCity")
+    public Result getAllCity(){
+       return getHouseResouceService.getAllCity();
+    }
+
+    @PostMapping(value = "/house/selectHouseByOption")
+    public Result selectHouseByOption(@RequestBody SelectHouseOption selectHouseOption) {
+        return getHouseResouceService.selectHouseByOption(selectHouseOption);
+    }
+
+
+
 }

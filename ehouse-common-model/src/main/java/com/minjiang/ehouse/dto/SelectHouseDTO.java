@@ -3,24 +3,20 @@ package com.minjiang.ehouse.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sun.dc.pr.PRError;
 
 import java.util.List;
 
 /**
  * @auther guannw
- * @create 2021/3/21 15:43
+ * @create 2021/3/26 4:10
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class City {
+public class SelectHouseDTO {
 
-    private Long id;
+    private List<HouseResouceList> houseResouceListList;
 
-    private String city_name;
-
-    private List<Area> areaList;
+    private Integer count;
 
 }

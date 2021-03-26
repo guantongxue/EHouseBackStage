@@ -11,7 +11,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://106.52.39.242:3306/ehouse?useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true
+    url: jdbc:mysql://106.52.39.242:3306/ehouse?useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&allowMultiQueries=true
     username: root
     password: 123456
 ribbon:

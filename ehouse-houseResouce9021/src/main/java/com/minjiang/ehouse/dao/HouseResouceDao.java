@@ -1,12 +1,7 @@
 package com.minjiang.ehouse.dao;
 
-import com.minjiang.ehouse.dto.City;
-import com.minjiang.ehouse.dto.HouseEnvironment;
-import com.minjiang.ehouse.dto.HouseType;
-import com.minjiang.ehouse.entities.house.HouseEnvirs;
-import com.minjiang.ehouse.entities.house.HouseRelease;
-import com.minjiang.ehouse.entities.house.ReleasePhotos;
-import com.minjiang.ehouse.entities.house.ReleaseVideo;
+import com.minjiang.ehouse.dto.*;
+import com.minjiang.ehouse.entities.house.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +30,11 @@ public interface HouseResouceDao {
     public int saveReleasePhotos(List<ReleasePhotos> photosList);
     //保存房源发布视频信息
     public int saveReleaseVideo(ReleaseVideo releaseVideo);
-
+    //根据城市名称获取区域名称
+    public List<Area> getAllAreaByCity(GetAllAreaByCity getAllAreaByCity);
+    //查询所有可选择城市
+    public List<AllCity> getAllCity();
+    //根据条件分页查询房源
+    public List<Object> selectHouseByOption(SelectHouseOption selectHouseOption);
 
 }

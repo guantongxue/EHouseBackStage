@@ -1,7 +1,9 @@
 package com.minjiang.ehouse.controller;
 
 import com.minjiang.ehouse.entities.Result;
+import com.minjiang.ehouse.entities.house.GetAllAreaByCity;
 import com.minjiang.ehouse.entities.house.HouseReleaseForm;
+import com.minjiang.ehouse.entities.house.SelectHouseOption;
 import com.minjiang.ehouse.service.HouseResouceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,20 @@ public class HouseResouceController {
     public Result houseRelease(String houseReleaseForm, @RequestParam(value = "fileVideo",required=false) MultipartFile file, @RequestParam(value = "filePhotos",required=false) MultipartFile[] files)throws IOException {
 
         return houseResouceService.houseRelease(houseReleaseForm,file,files);
+    }
+    @PostMapping(value = "/house/getAllAreaByCity")
+    public Result getAllAreaByCity(GetAllAreaByCity getAllAreaByCity){
+        return houseResouceService.getAllAreaByCity(getAllAreaByCity);
+    }
+
+    @GetMapping(value = "/house/getAllCity")
+    public Result getAllCity(){
+        return houseResouceService.getAllCity();
+    }
+
+    @PostMapping(value = "/house/selectHouseByOption")
+    public Result selectHouseByOption(@RequestBody SelectHouseOption selectHouseOption){
+        return houseResouceService.selectHouseByOption(selectHouseOption);
     }
 
 }

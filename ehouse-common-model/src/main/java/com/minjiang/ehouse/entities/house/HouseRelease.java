@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @auther guannw
  * @create 2021/3/23 0:10
@@ -23,4 +25,6 @@ public class HouseRelease {
     private String area;
     private String house_type;
     private Long price;
+    private Date create_time;
+    private String key_word;
 }

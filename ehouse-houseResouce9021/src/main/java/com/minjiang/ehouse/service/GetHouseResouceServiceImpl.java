@@ -3,9 +3,7 @@ package com.minjiang.ehouse.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.minjiang.ehouse.dao.HouseResouceDao;
-import com.minjiang.ehouse.dto.City;
-import com.minjiang.ehouse.dto.HouseEnvironment;
-import com.minjiang.ehouse.dto.HouseType;
+import com.minjiang.ehouse.dto.*;
 import com.minjiang.ehouse.entities.Result;
 import com.minjiang.ehouse.entities.ResultCode;
 import com.minjiang.ehouse.entities.house.*;
@@ -202,6 +200,7 @@ public class GetHouseResouceServiceImpl implements GetHouseResouceService {
             houseRelease.setArea(houseReleaseForm.getHouse_area());
             houseRelease.setHouse_type(houseReleaseForm.getHouse_type());
             houseRelease.setPrice(houseReleaseForm.getHouse_price());
+            houseRelease.setCreate_time(new Date());
             houseResouceDao.saveHouseRelease(houseRelease);
             //保存房源环境
             List<HouseEnvirs> houseEnvirsList = new ArrayList<HouseEnvirs>();
@@ -246,6 +245,34 @@ public class GetHouseResouceServiceImpl implements GetHouseResouceService {
         }
         return result;
     }
+
+    public Result getAllAreaByCity(GetAllAreaByCity getAllAreaByCity) {
+        List<Area> areaList = new ArrayList<Area>();
+        areaList = houseResouceDao.getAllAreaByCity(getAllAreaByCity);
+        result = new Result(ResultCode.SUCCESS);
+        result.setData(areaList);
+        return result;
+    }
+
+    public Result getAllCity() {
+        List<AllCity> cityList = houseResouceDao.getAllCity();
+        result = new Result(ResultCode.SUCCESS);
+        result.setData(cityList);
+        return result;
+    }
+
+    public Result selectHouseByOption(SelectHouseOption selectHouseOption) {
+        List<Object> objectList= houseResouceDao.selectHouseByOption(selectHouseOption);
+        List<HouseResouceList> houseResouceLists = ((List<HouseResouceList>)objectList.get(0));
+        Integer total = ((List<Integer>) objectList.get(1)).get(0);
+        SelectHouseDTO selectHouseDTO = new SelectHouseDTO();
+        selectHouseDTO.setCount(total);
+        selectHouseDTO.setHouseResouceListList(houseResouceLists);
+        result = new Result(ResultCode.SUCCESS);
+        result.setData(selectHouseDTO);
+        return result;
+    }
+
 
     private File transferToFile(MultipartFile multipartFile) {
         File file = null;

@@ -1,7 +1,9 @@
 package com.minjiang.ehouse.service;
 
 import com.minjiang.ehouse.entities.Result;
+import com.minjiang.ehouse.entities.house.GetAllAreaByCity;
 import com.minjiang.ehouse.entities.house.HouseReleaseForm;
+import com.minjiang.ehouse.entities.house.SelectHouseOption;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,4 +26,12 @@ public interface GetHouseResouceService {
     public Result getEnvironment();
     //发布房源
     public Result houseRelease(HouseReleaseForm houseReleaseForm, MultipartFile file, MultipartFile[] files) throws IOException;
+    //根据城市获取区域
+    public Result getAllAreaByCity(GetAllAreaByCity getAllAreaByCity);
+    //查询所有可选择城市
+    public Result getAllCity();
+    //根据条件分页查询房源
+    public Result selectHouseByOption(SelectHouseOption selectHouseOption);
+
+
 }

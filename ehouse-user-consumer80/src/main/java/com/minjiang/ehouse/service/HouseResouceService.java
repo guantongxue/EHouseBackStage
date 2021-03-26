@@ -1,13 +1,12 @@
 package com.minjiang.ehouse.service;
 
 import com.minjiang.ehouse.entities.Result;
+import com.minjiang.ehouse.entities.house.GetAllAreaByCity;
 import com.minjiang.ehouse.entities.house.HouseReleaseForm;
+import com.minjiang.ehouse.entities.house.SelectHouseOption;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -32,4 +31,13 @@ public interface HouseResouceService {
     @PostMapping(value = "/house/release")
     @ResponseBody
     public Result houseRelease(String houseReleaseForm, @RequestParam(value = "fileVideo",required=false) MultipartFile file, @RequestParam(value = "filePhotos",required=false) MultipartFile[] files)throws IOException ;
+
+    @PostMapping(value = "/house/getAllAreaByCity")
+    public Result getAllAreaByCity(@RequestBody GetAllAreaByCity getAllAreaByCity);
+
+    @GetMapping(value = "/house/getAllCity")
+    public Result getAllCity();
+
+    @PostMapping(value = "/house/selectHouseByOption")
+    public Result selectHouseByOption(@RequestBody SelectHouseOption selectHouseOption);
 }
