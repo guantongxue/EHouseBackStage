@@ -1,9 +1,7 @@
 package com.minjiang.ehouse.service;
 
 import com.minjiang.ehouse.entities.Result;
-import com.minjiang.ehouse.entities.house.GetAllAreaByCity;
-import com.minjiang.ehouse.entities.house.HouseReleaseForm;
-import com.minjiang.ehouse.entities.house.SelectHouseOption;
+import com.minjiang.ehouse.entities.house.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +38,16 @@ public interface HouseResouceService {
 
     @PostMapping(value = "/house/selectHouseByOption")
     public Result selectHouseByOption(@RequestBody SelectHouseOption selectHouseOption);
+
+    @PostMapping(value = "/house/getHouseResouceById")
+    public Result getHouseResouceById(@RequestBody GetHouseResouceForm getHouseResouceForm);
+
+    @PostMapping(value = "/house/houseIsCollection")
+    public Result houseIsCollection(@RequestBody HouseCollectionForm houseCollectionForm);
+
+    @PostMapping(value = "/house/cancleCollection")
+    public Result cancleCollection(@RequestBody HouseCollectionForm houseCollectionForm);
+
+    @PostMapping(value = "/house/getCollectionStatus")
+    public Result getCollectionStatus(@RequestBody HouseCollectionForm houseCollectionForm);
 }

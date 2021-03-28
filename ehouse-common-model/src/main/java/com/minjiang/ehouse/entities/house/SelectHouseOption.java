@@ -25,22 +25,4 @@ public class SelectHouseOption {
     private Long current_page;
     private Long page_size;
     private String key_word;
-    private Integer envir_length;
-
-    public List<String> getHouse_envirs() {
-        return house_envirs;
-    }
-
-    public void setHouse_envirs(List<String> house_envirs) {
-        this.house_envirs = house_envirs;
-        this.envir_length = house_envirs.size();
-    }
-
-    public Integer getEnvir_length() {
-        return envir_length;
-    }
-
-    public void setEnvir_length(Integer envir_length) {
-
-    }
 }

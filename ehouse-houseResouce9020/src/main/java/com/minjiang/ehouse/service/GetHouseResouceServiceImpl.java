@@ -273,6 +273,70 @@ public class GetHouseResouceServiceImpl implements GetHouseResouceService {
         return result;
     }
 
+    public Result getHouseResouceById(GetHouseResouceForm getHouseResouceForm) {
+        HouseResouceList houseResouceList = houseResouceDao.getHouseResouceById(getHouseResouceForm);
+        result = new Result(ResultCode.SUCCESS);
+        result.setData(houseResouceList);
+        return result;
+    }
+
+    //收藏
+    @Transactional
+    public Result houseIsCollection(HouseCollectionForm houseCollectionForm){
+        //判断是否已经被收藏
+        HouseCollectionForm houseCollectionFormTemp = houseResouceDao.getCollectionStatus(houseCollectionForm);
+        //如果已经被收藏不做任何操作
+        if(houseCollectionFormTemp == null){
+            //如果没被收藏，数据库中没有保存信息，添加收藏信息
+            houseCollectionForm.setId(idWorker.nextId()+"");
+            houseResouceDao.saveHouseCollection(houseCollectionForm);
+            result = new Result(ResultCode.SUCCESS);
+            result.setData(houseCollectionForm);
+            return result;
+        }else {
+            //数据库中有保存信息，修改保存信息
+            if(houseCollectionFormTemp.getIsCollection()){
+                //如果已经被收藏
+                result = new Result(ResultCode.SUCCESS);
+                result.setData(houseCollectionForm);
+                return result;
+            }else {
+                //有信息，但是没被收藏修改收藏信息
+                houseResouceDao.updateHouseCollection(houseCollectionForm);
+                result = new Result(ResultCode.SUCCESS);
+                result.setData(houseCollectionForm);
+                return result;
+            }
+        }
+
+    }
+
+
+    //取消收藏
+    @Transactional
+    public Result cancleCollection(HouseCollectionForm houseCollectionForm){
+        //修改收藏信息
+        houseResouceDao.updateHouseCollection(houseCollectionForm);
+        result = new Result(ResultCode.SUCCESS);
+        result.setData(houseCollectionForm);
+        return result;
+    }
+    //获取收藏状态
+    @Transactional
+    public Result getCollectionStatus(HouseCollectionForm houseCollectionForm){
+        HouseCollectionForm houseCollectionFormTemp = houseResouceDao.getCollectionStatus(houseCollectionForm);
+        if(houseCollectionFormTemp == null){
+            houseCollectionForm.setIsCollection(false);
+            result = new Result(ResultCode.SUCCESS);
+            result.setData(houseCollectionForm);
+            return result;
+        }else {
+            result = new Result(ResultCode.SUCCESS);
+            result.setData(houseCollectionFormTemp);
+            return result;
+        }
+    }
+
 
     private File transferToFile(MultipartFile multipartFile) {
         File file = null;

@@ -130,6 +130,9 @@
         <if test=" biz_type != null">
             AND  biz_type = #{biz_type}
         </if>
+        <if test="key_word != null">
+            AND resouce_title like "%"#{key_word}"%"
+        </if>
         <if test=" minPrice != null and maxPrice != null"> AND price BETWEEN #{minPrice} and #{maxPrice}
         </if>
         <if test="house_envirs != null ">
@@ -154,7 +157,7 @@
                 ORDER BY price ASC
             </otherwise>
         </choose>
-        limit #{current_page} , #{page_size}
+        limit ${current_page * page_size} , #{page_size}
         ) a
         left join releaseEnvirs b on a.id = b.release_id
         left join releasePhotos c on a.id = c.release_id
@@ -187,6 +190,9 @@
         <if test=" biz_type != null">
             AND  biz_type = #{biz_type}
         </if>
+        <if test="key_word != null">
+            AND resouce_title like "%"#{key_word}"%"
+        </if>
         <if test=" minPrice != null and maxPrice != null"> AND price BETWEEN #{minPrice} and #{maxPrice}
         </if>
         <if test="house_envirs != null ">
@@ -209,4 +215,55 @@
         left join releasePhotos c on a.id = c.release_id
         left join releaseVideos d on a.id = d.release_id;
     </select>
+    <resultMap id="HouseResouceById" type="com.minjiang.ehouse.dto.HouseResouceList">
+        <result property="id" column="id" />
+        <result property="city" column="city" />
+        <result property="area" column="area" />
+        <result property="username" column="username"/>
+        <result property="house_type" column="house_type"/>
+        <result property="resouce_title" column="resouce_title"/>
+        <result property="resouce_desc" column="resouce_desc"/>
+        <result property="biz_type" column="biz_type"/>
+        <result property="create_time" column="create_time"/>
+        <result property="price" column="price"/>
+        <collection property="houseEnvironmentList" ofType="com.minjiang.ehouse.dto.HouseEnvironment">
+            <result property="id" column="b_id"/>
+            <result property="envir_type" column="envir_name"/>
+        </collection>
+        <collection property="releasePhotosList" ofType="com.minjiang.ehouse.entities.house.ReleasePhotos">
+            <result property="id" column="c_id"/>
+            <result property="photo_addr" column="photo_addr"/>
+            <result property="release_id" column="c_release_id"/>
+            <result property="username" column="c_username"/>
+        </collection>
+        <collection property="releaseVideoList" ofType="com.minjiang.ehouse.entities.house.ReleaseVideo">
+            <result property="id" column="d_id"/>
+            <result property="video_addr" column="video_addr"/>
+            <result property="release_id" column="d_release_id"/>
+            <result property="username" column="d_username"/>
+        </collection>
+    </resultMap>
+    <select id="getHouseResouceById" parameterType="com.minjiang.ehouse.entities.house.GetHouseResouceForm" resultMap="HouseResouceById">
+    select a.id,a.city,a.area,a.username,a.house_type,a.resouce_title,a.resouce_desc,a.biz_type,a.create_time,a.price,
+         b.id b_id,b.envir_name,
+         c.id c_id,c.photo_addr,c.release_id c_release_id,c.username c_username,
+         d.id d_id,d.video_addr,d.release_id d_release_id,d.username d_username
+         from houseRelease a
+         left join releaseEnvirs b on a.id = b.release_id
+         left join releasePhotos c on a.id = c.release_id
+         left join releaseVideos d on a.id = d.release_id
+         where a.id = #{id}
+    </select>
+
+    <select id="getCollectionStatus" resultType="com.minjiang.ehouse.entities.house.HouseCollectionForm">
+        select id,username,release_id,isCollection
+        from houseCollection
+        where username = #{username} AND release_id =#{release_id};
+    </select>
+    <insert id="saveHouseCollection" parameterType="com.minjiang.ehouse.entities.house.HouseCollectionForm">
+        insert into houseCollection(id,username,release_id,isCollection) values(#{id},#{username},#{release_id},#{isCollection});
+    </insert>
+    <update id="updateHouseCollection" parameterType="com.minjiang.ehouse.entities.house.HouseCollectionForm">
+        update houseCollection SET isCollection = #{isCollection} where username = #{username} AND release_id = #{release_id};
+    </update>
 </mapper>

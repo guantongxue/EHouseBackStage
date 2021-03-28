@@ -1,9 +1,7 @@
 package com.minjiang.ehouse.service;
 
 import com.minjiang.ehouse.entities.Result;
-import com.minjiang.ehouse.entities.house.GetAllAreaByCity;
-import com.minjiang.ehouse.entities.house.HouseReleaseForm;
-import com.minjiang.ehouse.entities.house.SelectHouseOption;
+import com.minjiang.ehouse.entities.house.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +30,13 @@ public interface GetHouseResouceService {
     public Result getAllCity();
     //根据条件分页查询房源
     public Result selectHouseByOption(SelectHouseOption selectHouseOption);
-
+    //根据id查询房源信息
+    public Result getHouseResouceById(GetHouseResouceForm getHouseResouceForm);
+    //收藏
+    public Result houseIsCollection(HouseCollectionForm houseCollectionForm);
+    //取消收藏
+    public Result cancleCollection(HouseCollectionForm houseCollectionForm);
+    //获取收藏状态
+    public Result getCollectionStatus(HouseCollectionForm houseCollectionForm);
 
 }

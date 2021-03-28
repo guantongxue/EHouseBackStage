@@ -36,5 +36,13 @@ public interface HouseResouceDao {
     public List<AllCity> getAllCity();
     //根据条件分页查询房源
     public List<Object> selectHouseByOption(SelectHouseOption selectHouseOption);
+    //根据id查询房源信息
+    public HouseResouceList getHouseResouceById(GetHouseResouceForm getHouseResouceForm);
+    //获取收藏状态
+    public HouseCollectionForm getCollectionStatus(HouseCollectionForm houseCollectionForm);
+    //保存房源收藏信息
+    public int saveHouseCollection(HouseCollectionForm houseCollectionForm);
+    //修改房源收藏信息
+    public int updateHouseCollection(HouseCollectionForm houseCollectionForm);
 
 }

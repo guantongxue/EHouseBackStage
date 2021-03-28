@@ -1,9 +1,6 @@
 package com.minjiang.ehouse.dao;
 
-import com.minjiang.ehouse.dto.Area;
-import com.minjiang.ehouse.dto.City;
-import com.minjiang.ehouse.dto.HouseEnvironment;
-import com.minjiang.ehouse.dto.HouseType;
+import com.minjiang.ehouse.dto.*;
 import com.minjiang.ehouse.entities.house.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -39,5 +36,13 @@ public interface HouseResouceDao {
     public List<AllCity> getAllCity();
     //根据条件分页查询房源
     public List<Object> selectHouseByOption(SelectHouseOption selectHouseOption);
+    //根据id查询房源信息
+    public HouseResouceList getHouseResouceById(GetHouseResouceForm getHouseResouceForm);
+    //获取收藏状态
+    public HouseCollectionForm getCollectionStatus(HouseCollectionForm houseCollectionForm);
+    //保存房源收藏信息
+    public int saveHouseCollection(HouseCollectionForm houseCollectionForm);
+    //修改房源收藏信息
+    public int updateHouseCollection(HouseCollectionForm houseCollectionForm);
 
 }
