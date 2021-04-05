@@ -4,26 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 /**
  * @auther guannw
- * @create 2021/3/28 17:57
+ * @create 2021/3/30 14:15
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseCollectionForm {
-
-    private String id;
-
-    private String username;
+public class DeleteHouseReleaseForm {
 
     private String release_id;
 
-    private Boolean isCollection;
-
-    private Date collection_time;
-
+    private String username;
 }

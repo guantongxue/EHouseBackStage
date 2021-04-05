@@ -81,6 +81,28 @@ public class GetHouserRecouseController {
     public Result getCollectionStatus(@RequestBody HouseCollectionForm houseCollectionForm){
         return getHouseResouceService.getCollectionStatus(houseCollectionForm);
     }
+    //查询获取自己发布的房源信息
+    @PostMapping(value = "/house/getMyReleaseHouse")
+    public Result getMyReleaseHouse(@RequestBody HouseMyReleaseForm houseMyReleaseForm){
+        return getHouseResouceService.getMyReleaseHouse(houseMyReleaseForm);
+    }
+    //删除房源
+    @PostMapping(value = "/house/delMyReleaseHouse")
+    public Result delMyReleaseHouse(@RequestBody DeleteHouseReleaseForm deleteHouseReleaseForm){
+        return getHouseResouceService.delMyReleaseHouse(deleteHouseReleaseForm);
+    }
+    //查询个人收藏的房源信息
+    @PostMapping(value = "/house/selectMyCollection")
+    public Result selectMyCollection(@RequestBody SelectMyCollectionForm selectMyCollectionForm){
+        return getHouseResouceService.selectMyCollection(selectMyCollectionForm);
+    }
 
+    @PostMapping(value = "/house/editHouseRelease")
+    @ResponseBody
+    public Result editHouseRelease(String houseReleaseForm, @RequestParam(value = "fileVideo",required=false) MultipartFile file, @RequestParam(value = "filePhotos",required=false) MultipartFile[] files)throws IOException{
+        Gson gson = new Gson();
+        HouseReleaseForm houseReleaseForm1 = gson.fromJson(houseReleaseForm, HouseReleaseForm.class);
+        return getHouseResouceService.editHouseRelease(houseReleaseForm1,file,files);
+    }
 
 }

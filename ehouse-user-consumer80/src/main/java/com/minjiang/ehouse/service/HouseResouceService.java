@@ -50,4 +50,18 @@ public interface HouseResouceService {
 
     @PostMapping(value = "/house/getCollectionStatus")
     public Result getCollectionStatus(@RequestBody HouseCollectionForm houseCollectionForm);
+
+    @PostMapping(value = "/house/getMyReleaseHouse")
+    public Result getMyReleaseHouse(@RequestBody HouseMyReleaseForm houseMyReleaseForm);
+
+    @PostMapping(value = "/house/delMyReleaseHouse")
+    public Result delMyReleaseHouse(@RequestBody DeleteHouseReleaseForm deleteHouseReleaseForm);
+
+    @PostMapping(value = "/house/selectMyCollection")
+    public Result selectMyCollection( @RequestBody SelectMyCollectionForm selectMyCollectionForm);
+
+    @PostMapping(value = "/house/editHouseRelease")
+    @ResponseBody
+    public Result editHouseRelease(String houseReleaseForm, @RequestParam(value = "fileVideo",required=false) MultipartFile file, @RequestParam(value = "filePhotos",required=false) MultipartFile[] files)throws IOException;
+
 }

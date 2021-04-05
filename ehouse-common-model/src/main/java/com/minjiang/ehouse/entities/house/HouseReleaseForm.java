@@ -33,5 +33,12 @@ public class HouseReleaseForm {
     private Long house_price;
     //房源房型
     private String house_type;
+    //已经发布房源信息主键id
+    private String release_id;
+    //已经发布图片地址
+    private List<String> release_photos;
+    //已经发布视频地址
+    private String video_addr;
+
 
 }

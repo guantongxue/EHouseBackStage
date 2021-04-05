@@ -41,7 +41,6 @@ public class HouseResouceController {
     @PostMapping(value = "/house/release")
     @ResponseBody
     public Result houseRelease(String houseReleaseForm, @RequestParam(value = "fileVideo",required=false) MultipartFile file, @RequestParam(value = "filePhotos",required=false) MultipartFile[] files)throws IOException {
-
         return houseResouceService.houseRelease(houseReleaseForm,file,files);
     }
     @PostMapping(value = "/house/getAllAreaByCity")
@@ -77,5 +76,25 @@ public class HouseResouceController {
     public Result getCollectionStatus(@RequestBody HouseCollectionForm houseCollectionForm){
         return houseResouceService.getCollectionStatus(houseCollectionForm);
     }
+    //查询获取自己发布的房源信息
+    @PostMapping(value = "/house/getMyReleaseHouse")
+    public Result getMyReleaseHouse(@RequestBody HouseMyReleaseForm houseMyReleaseForm){
+        return houseResouceService.getMyReleaseHouse(houseMyReleaseForm);
+    }
+    @PostMapping(value = "/house/delMyReleaseHouse")
+    public Result delMyReleaseHouse(@RequestBody DeleteHouseReleaseForm deleteHouseReleaseForm){
+        return houseResouceService.delMyReleaseHouse(deleteHouseReleaseForm);
+    }
 
+    //查询个人收藏的房源信息
+    @PostMapping(value = "/house/selectMyCollection")
+    public Result selectMyCollection( @RequestBody SelectMyCollectionForm selectMyCollectionForm){
+        return houseResouceService.selectMyCollection(selectMyCollectionForm);
+    }
+
+    @PostMapping(value = "/house/editHouseRelease")
+    @ResponseBody
+    public Result editHouseRelease(String houseReleaseForm, @RequestParam(value = "fileVideo",required=false) MultipartFile file, @RequestParam(value = "filePhotos",required=false) MultipartFile[] files)throws IOException {
+        return houseResouceService.editHouseRelease(houseReleaseForm,file,files);
+    }
 }

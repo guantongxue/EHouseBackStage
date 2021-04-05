@@ -26,8 +26,8 @@
     </select>
 
     <insert id="saveHouseRelease" parameterType="com.minjiang.ehouse.entities.house.HouseRelease">
-        insert into houseRelease(id,username,biz_type,resouce_title,resouce_desc,city,area,house_type,price,create_time)
-        values (#{id},#{username},#{biz_type},#{resouce_title},#{resouce_desc},#{city},#{area},#{house_type},#{price},#{create_time});
+        insert into houseRelease(id,username,biz_type,resouce_title,resouce_desc,city,area,house_type,price,create_time,status)
+        values (#{id},#{username},#{biz_type},#{resouce_title},#{resouce_desc},#{city},#{area},#{house_type},#{price},#{create_time},#{status});
     </insert>
 
     <insert id="saveReleaseEnvirs" parameterType="java.util.List">
@@ -117,9 +117,9 @@
          resouce_title, resouce_desc,
          biz_type,create_time,price
         from houseRelease
-        where
+        where status = true
         <if test=" city != null">
-             city = #{city}
+            AND  city = #{city}
         </if>
         <if test=" area != null">
             AND area = #{area}
@@ -177,9 +177,9 @@
         resouce_title, resouce_desc,
         biz_type,create_time,price
         from houseRelease
-        where
+        where  status = true
         <if test=" city != null">
-            city = #{city}
+            AND  city = #{city}
         </if>
         <if test=" area != null">
             AND area = #{area}
@@ -252,7 +252,7 @@
          left join releaseEnvirs b on a.id = b.release_id
          left join releasePhotos c on a.id = c.release_id
          left join releaseVideos d on a.id = d.release_id
-         where a.id = #{id}
+         where a.id = #{id} AND status = true
     </select>
 
     <select id="getCollectionStatus" resultType="com.minjiang.ehouse.entities.house.HouseCollectionForm">
@@ -261,9 +261,78 @@
         where username = #{username} AND release_id =#{release_id};
     </select>
     <insert id="saveHouseCollection" parameterType="com.minjiang.ehouse.entities.house.HouseCollectionForm">
-        insert into houseCollection(id,username,release_id,isCollection) values(#{id},#{username},#{release_id},#{isCollection});
+        insert into houseCollection(id,username,release_id,isCollection,collection_time) values(#{id},#{username},#{release_id},#{isCollection},#{collection_time});
     </insert>
     <update id="updateHouseCollection" parameterType="com.minjiang.ehouse.entities.house.HouseCollectionForm">
-        update houseCollection SET isCollection = #{isCollection} where username = #{username} AND release_id = #{release_id};
+        update houseCollection SET isCollection = #{isCollection},collection_time = #{collection_time} where username = #{username} AND release_id = #{release_id};
     </update>
+
+    <select id="getMyReleaseHouse" parameterType="com.minjiang.ehouse.entities.house.HouseMyReleaseForm" resultMap="HouseResouceByOption,count">
+        select  * from (select id ,city ,area ,username,house_type,
+        resouce_title, resouce_desc,
+        biz_type,create_time,price
+        from houseRelease where username = #{username} AND status = true
+        <if test="key_word != null">
+            AND resouce_title like "%"#{key_word}"%"
+        </if>
+        limit ${current_page * page_size} , #{page_size} ) a
+        left join releaseEnvirs b ON a.id = b.release_id AND a.username = b.username
+        left join releasePhotos c ON a.id = c.release_id AND a.username = c.username
+        left join releaseVideos d ON a.id = d.release_id AND a.username = d.username
+        <choose>
+            <when test="order_createTime == 1">
+                ORDER BY a.create_time DESC
+            </when>
+            <otherwise>
+                ORDER BY a.create_time ASC
+            </otherwise>
+        </choose>;
+        select count(distinct(a.id)) as count
+        from (
+        select id ,city ,area ,username,house_type,
+        resouce_title, resouce_desc,
+        biz_type,create_time,price
+        from houseRelease
+        where username = #{username}
+        <if test="key_word != null">
+            AND resouce_title like "%"#{key_word}"%"
+        </if>) a
+        left join releaseEnvirs b ON a.id = b.release_id AND a.username = b.username
+        left join releasePhotos c ON a.id = c.release_id AND a.username = c.username
+        left join releaseVideos d ON a.id = d.release_id AND a.username = d.username;
+    </select>
+
+    <update id="delMyReleaseHouse" parameterType="com.minjiang.ehouse.entities.house.DeleteHouseReleaseForm">
+        update houseRelease SET status = false where username = #{username} AND id = #{release_id};
+    </update>
+
+    <select id="selectMyCollection" parameterType="com.minjiang.ehouse.entities.house.SelectMyCollectionForm" resultMap="HouseResouceByOption,count">
+        select  * from (select id ,city ,area ,username,house_type,
+        resouce_title, resouce_desc,
+        biz_type,create_time,price
+        from houseRelease
+        where id = any(select release_id from houseCollection e where username = #{username} ORDER BY collection_time)
+        AND status = true
+        <if test="key_word != null">
+            AND resouce_title like "%"#{key_word}"%"
+        </if>
+        limit ${current_page * page_size} , #{page_size} ) a
+        left join releaseEnvirs b ON a.id = b.release_id AND a.username = b.username
+        left join releasePhotos c ON a.id = c.release_id AND a.username = c.username
+        left join releaseVideos d ON a.id = d.release_id AND a.username = d.username;
+        select count(distinct(a.id)) as count
+        from (
+        select id ,city ,area ,username,house_type,
+        resouce_title, resouce_desc,
+        biz_type,create_time,price
+        from houseRelease
+        where id = any(select release_id from houseCollection e where username = #{username} ORDER BY collection_time)
+        AND status = true
+        <if test="key_word != null">
+            AND resouce_title like "%"#{key_word}"%"
+        </if>) a
+        left join releaseEnvirs b ON a.id = b.release_id AND a.username = b.username
+        left join releasePhotos c ON a.id = c.release_id AND a.username = c.username
+        left join releaseVideos d ON a.id = d.release_id AND a.username = d.username;
+    </select>
 </mapper>

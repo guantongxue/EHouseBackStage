@@ -27,4 +27,5 @@ public class HouseRelease {
     private Long price;
     private Date create_time;
     private String key_word;
+    private Boolean status;
 }

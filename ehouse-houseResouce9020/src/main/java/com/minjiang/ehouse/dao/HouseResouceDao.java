@@ -1,6 +1,7 @@
 package com.minjiang.ehouse.dao;
 
 import com.minjiang.ehouse.dto.*;
+import com.minjiang.ehouse.entities.Result;
 import com.minjiang.ehouse.entities.house.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -44,5 +45,11 @@ public interface HouseResouceDao {
     public int saveHouseCollection(HouseCollectionForm houseCollectionForm);
     //修改房源收藏信息
     public int updateHouseCollection(HouseCollectionForm houseCollectionForm);
+    //获取自己发布的房源信息
+    public List<Object>  getMyReleaseHouse(HouseMyReleaseForm houseMyReleaseForm);
+    //删除发布房源信息
+    public int delMyReleaseHouse(DeleteHouseReleaseForm deleteHouseReleaseForm);
+    //查询个人收藏的房源信息
+    public List<Object>  selectMyCollection(SelectMyCollectionForm selectMyCollectionForm);
 
 }
