@@ -21,6 +21,7 @@
         <module>ehouse-map9011</module>
         <module>ehouse-houseResouce9020</module>
         <module>ehouse-houseResouce9021</module>
+        <module>ehouse-nettyChat8018</module>
     </modules>
 
     <properties>

@@ -9,6 +9,7 @@ import com.minjiang.ehouse.entities.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,9 @@ public class TokenUtil {
     private long refreshTokenExpireTime;
 
     private Map<String , String> map = new HashMap<String, String>();
+
+    @Autowired
+    RedisTemplate redisTemplate;
 
     /**
      * 固定的头

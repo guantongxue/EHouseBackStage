@@ -44,7 +44,7 @@ public class HouseResouceController {
         return houseResouceService.houseRelease(houseReleaseForm,file,files);
     }
     @PostMapping(value = "/house/getAllAreaByCity")
-    public Result getAllAreaByCity(GetAllAreaByCity getAllAreaByCity){
+    public Result getAllAreaByCity(@RequestBody GetAllAreaByCity getAllAreaByCity){
         return houseResouceService.getAllAreaByCity(getAllAreaByCity);
     }
 

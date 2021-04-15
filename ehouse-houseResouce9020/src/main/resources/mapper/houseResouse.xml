@@ -293,7 +293,7 @@
         resouce_title, resouce_desc,
         biz_type,create_time,price
         from houseRelease
-        where username = #{username}
+        where username = #{username} AND status = true
         <if test="key_word != null">
             AND resouce_title like "%"#{key_word}"%"
         </if>) a
