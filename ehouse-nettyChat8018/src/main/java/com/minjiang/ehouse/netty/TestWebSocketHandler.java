@@ -172,13 +172,8 @@ public class TestWebSocketHandler extends SimpleChannelInboundHandler<TextWebSoc
     * */
     @Async
     public void messageStorage(SocketMessage socketMessage,String messageRediskey){
-        Boolean flag = redisOperatingUtil.hasKey(messageRediskey);
         redisOperatingUtil.listRightPush(messageRediskey, socketMessage);
-        //如果第一次创建key 设置缓存时间
-        if(!flag){
-            redisOperatingUtil.setKeyTime(messageRediskey,21600);
-        }
-
+        redisOperatingUtil.setKeyTime(messageRediskey,21600);
     }
 
 }
